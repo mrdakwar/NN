@@ -2,7 +2,7 @@
 
 #include "NN_2.h"
 
-void NN2_update(float *nu, float *target_nu){
+void NN2_update(float *nu, float *target_nu, float delta_time){
 	
 	int i;
 
@@ -22,7 +22,7 @@ void NN2_update(float *nu, float *target_nu){
 		//forward propogate for each output
 		for(j = 0; j < NUMHID; j++){
 			node[i][j] = sigma( W[i][j][0] * nu[j] + W[i][j][1] * r_att[j]);
-			NN_out[i] = V[i][j] * node[i][j];
+			NN_out[i] += V[i][j] * node[i][j];
 			}
 	}
 	r_mag_att = (r_att[0]+r_att[1]+r_att[2])/3.0;
@@ -31,7 +31,7 @@ void NN2_update(float *nu, float *target_nu){
 }
 
 
-void NN2_update_weights(){
+void NN2_update_weights(float r_mag_att, float delta_time){
 	int i, j;
 
 	for(j = 0; j < 3; j ++){
@@ -45,6 +45,6 @@ void NN2_update_weights(){
 
 
 
-double sigma(double value){
+double sigma(float value){
 	return 1.0/(1.0 - exp(value));
 }

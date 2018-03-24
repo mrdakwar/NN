@@ -13,14 +13,10 @@ static float kappa = 0.01;
 static float lambda = 0.01;
 
 //calculated and given values
-static float delta_time;
-static float *nu_previous = 0;
-static float *nu;
-static float *target_nu;
+static float previous_error_att[3] = 0;
 
-
-double sigma(double value);
-void NN_update(float *nu, float *target_nu);
-void NN_update_weights();
+double sigma(float value);
+void NN_update(float *nu, float *target_nu, float delta_time);
+void NN_update_weights(float r_mag_att, float delta_time);
 
 #endif
